@@ -3,12 +3,6 @@ kind: ApplicationSet
 metadata:
   name: cluster-git
 spec:
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
-    syncOptions:
-    - CreateNamespace=true
   generators:
     # matrix 'parent' generator
     - matrix:
@@ -25,6 +19,12 @@ spec:
     metadata:
       name: '{{path.basename}}-{{name}}'
     spec:
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
       project: default
       source:
         repoURL: https://github.com/codefresh-contrib/gitops-cert-level-2-examples.git
